@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seiko Watchespain - Configurador de Relojes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --oro-seiko: #D4AF37;
+            --negro-seiko: #111;
+            --rojo-seiko: #C00;
+            --gris-seiko: #f5f5f5;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Estructura base */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: white;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 1rem;
+            background: var(--negro-seiko);
+            text-align: center;
+            border-bottom: 3px solid var(--oro-seiko);
+        }
+
+        .logo {
+            width: 220px;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80"><text x="50%" y="60%" font-family="Playfair Display" font-size="36" fill="%23D4AF37" text-anchor="middle">SEIKO</text><text x="50%" y="85%" font-family="Roboto" font-size="14" fill="%23FFFFFF" text-anchor="middle">WATCHESPAIN</text></svg>') center no-repeat;
+            margin: 0 auto;
+        }
+
+        /* Catálogo de relojes */
+        .catalogo {
+            padding: 4rem 2rem;
+            background: var(--gris-seiko);
+        }
+
+        .catalogo h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--negro-seiko);
+        }
+
+        .watch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .watch-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .watch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .watch-image {
+            height: 250px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto difuminado al pasar el ratón */
+        .watch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: white;
+        }
+
+        .watch-card:hover .watch-overlay {
+            opacity: 1;
+        }
+
+        .watch-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--oro-seiko);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .btn-personalizar {
+            background: var(--oro-seiko);
+            color: var(--negro-seiko);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-personalizar:hover {
+            background: var(--rojo-seiko);
+            color: white;
+            animation: pulse 0.5s;
+        }
+
+        .watch-info {
+            padding: 1.5rem;
+        }
+
+        .watch-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--negro-seiko);
+        }
+
+        /* Configurador */
+        .configurator-container {
+            display: none;
+            grid-template-columns: 350px 1fr;
+            gap: 3rem;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .options-panel {
+            padding: 1.5rem;
+        }
+
+        .config-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--oro-seiko);
+            padding-bottom: 1rem;
+        }
+
+        .config-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--negro-seiko);
+        }
+
+        .config-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--rojo-seiko);
+        }
+
+        .option-group {
+            margin-bottom: 2rem;
+        }
+
+        .option-group h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--negro-seiko);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: var(--oro-seiko);
+        }
+
+        .option-btn.active {
+            border-color: var(--oro-seiko);
+            background: var(--oro-seiko);
+            color: white;
+            font-weight: bold;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 2px solid #eee;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--negro-seiko);
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .preview-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: var(--gris-seiko);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .watch-layer {
+            position: absolute;
+            max-width: 80%;
+            max-height: 80%;
+            transition: all 0.3s ease;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(18, 140, 126, 0.3);
+        }
+
+        .btn-volver {
+            background: var(--negro-seiko);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-volver:hover {
+            background: #333;
+            transform: translateY(-3px);
+        }
+
+        .selection-summary {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--oro-seiko);
+        }
+
+        .selection-summary h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+            color: var(--negro-seiko);
+        }
+
+        .selection-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .watch-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .configurator-container {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            
+            .preview-container {
+                height: 300px;
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+    </header>
+
+    <section class="catalogo">
+        <h2>Personaliza tu Reloj Seiko</h2>
+        
+        <div class="watch-grid">
+            <!-- Seitona -->
+            <div class="watch-card" data-model="seitona" data-price="170">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">170€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Seitona</h3>
+                    <p>Inspirado en el legendario Daytona, precisión y elegancia en un diseño atemporal.</p>
+                </div>
+            </div>
+
+            <!-- Seikojust -->
+            <div class="watch-card" data-model="seikojust" data-price="180">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">180€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Seikojust</h3>
+                    <p>La esencia del Datejust con la calidad Seiko. Perfecto para ocasiones especiales.</p>
+                </div>
+            </div>
+
+            <!-- Oysteko -->
+            <div class="watch-card" data-model="oysteko" data-price="165">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">165€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Oysteko</h3>
+                    <p>Combina la estética clásica del Oyster con la fiabilidad de los movimientos Seiko.</p>
+                </div>
+            </div>
+
+            <!-- Seikomariner -->
+            <div class="watch-card" data-model="seikomariner" data-price="190">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">190€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Seikomariner</h3>
+                    <p>El reloj definitivo para amantes del buceo, con resistencia al agua de 200m.</p>
+                </div>
+            </div>
+
+            <!-- Gmteiko -->
+            <div class="watch-card" data-model="gmteiko" data-price="200">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">200€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Gmteiko</h3>
+                    <p>Para viajeros frecuentes, muestra dos husos horarios simultáneamente con precisión.</p>
+                </div>
+            </div>
+
+            <!-- Royal Seikoak -->
+            <div class="watch-card" data-model="royalseikoak" data-price="185">
+                <div class="watch-image" style="background-image: url('https://placeholder.com/300x250')">
+                    <div class="watch-overlay">
+                        <div class="watch-price">185€</div>
+                        <button class="btn-personalizar">Personalizar</button>
+                    </div>
+                </div>
+                <div class="watch-info">
+                    <h3>Royal Seikoak</h3>
+                    <p>El diseño octogonal icónico con la precisión japonesa. No pasa desapercibido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configurador (oculto inicialmente) -->
+    <section class="configurator-container">
+        <!-- Se carga dinámicamente -->
+    </section>
+
+    <footer style="background: var(--negro-seiko); color: white; padding: 2rem; text-align: center; margin-top: 3rem;">
+        <p>© 2023 Seiko Watchespain - Todos los derechos reservados</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">
+            Relojería de lujo desde 1975 | Creado por NeonDev
+        </p>
+    </footer>
+
+    <script>
+        // Configuración actual
+        let currentConfig = {
+            model: "",
+            modelName: "",
+            price: 0,
+            bezel: "oro pulido",
+            dial: "blanca",
+            strap: "cuero",
+            strapColor: "marrón",
+            handsColor: "plateado"
+        };
+
+        // Mapeo de nombres
+        const modelNames = {
+            seitona: "Seitona",
+            seikojust: "Seikojust",
+            oysteko: "Oysteko",
+            seikomariner: "Seikomariner",
+            gmteiko: "Gmteiko",
+            royalseikoak: "Royal Seikoak"
+        };
+
+        // Mapeo de precios
+        const modelPrices = {
+            seitona: 170,
+            seikojust: 180,
+            oysteko: 165,
+            seikomariner: 190,
+            gmteiko: 200,
+            royalseikoak: 185
+        };
+
+        // Colores disponibles para manillas
+        const handsColors = {
+            "plateado": "#C0C0C0",
+            "oro": "#D4AF37",
+            "negro": "#000000",
+            "azul": "#0000FF",
+            "rojo": "#FF0000"
+        };
+
+        // Cargar configurador al hacer clic en "Personalizar"
+        document.querySelectorAll('.btn-personalizar').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const watchCard = this.closest('.watch-card');
+                currentConfig.model = watchCard.dataset.model;
+                currentConfig.modelName = modelNames[currentConfig.model];
+                currentConfig.price = parseInt(watchCard.dataset.price);
+                
+                // Ocultar catálogo y mostrar configurador
+                document.querySelector('.catalogo').style.display = 'none';
+                document.querySelector('.configurator-container').style.display = 'grid';
+                
+                // Cargar configurador
+                loadConfigurator();
+            });
+        });
+
+        // Función para cargar el configurador
+        function loadConfigurator() {
+            const configurator = document.querySelector('.configurator-container');
+            
+            configurator.innerHTML = `
+                <div class="options-panel">
+                    <div class="config-header">
+                        <div class="config-title">${currentConfig.modelName}</div>
+                        <div class="config-price">${currentConfig.price}€</div>
+                    </div>
+                    
+                    <div class="selection-summary">
+                        <h4>Tu selección:</h4>
+                        <div class="selection-item">
+                            <span>Modelo:</span>
+                            <span><strong>${currentConfig.modelName}</strong></span>
+                        </div>
+                        <div class="selection-item">
+                            <span>Bisel:</span>
+                            <span id="bezel-summary">${currentConfig.bezel}</span>
+                        </div>
+                        <div class="selection-item">
+                            <span>Esfera:</span>
+                            <span id="dial-summary">${currentConfig.dial}</span>
+                        </div>
+                        <div class="selection-item">
+                            <span>Correa:</span>
+                            <span id="strap-summary">${currentConfig.strap} (${currentConfig.strapColor})</span>
+                        </div>
+                        <div class="selection-item">
+                            <span>Manillas:</span>
+                            <span id="hands-summary">${currentConfig.handsColor}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Bisel</h3>
+                        <div class="options-grid">
+                            <button class="option-btn active" data-option="bezel" data-value="oro pulido" data-display="Oro Pulido">
+                                Oro Pulido
+                            </button>
+                            <button class="option-btn" data-option="bezel" data-value="plata cepillada" data-display="Plata Cepillada">
+                                Plata Cepillada
+                            </button>
+                            <button class="option-btn" data-option="bezel" data-value="negro cerámico" data-display="Negro Cerámico">
+                                Negro Cerámico
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3>Esfera</h3>
+                        <div class="options-grid">
+                            <button class="option-btn active" data-option="dial" data-value="blanca" data-display="Blanca">
+                                Blanca
+                            </button>
+                            <button class="option-btn" data-option="dial" data-value="negra" data-display="Negra">
+                                Negra
+                            </button>
+                            <button class="option-btn" data-option="dial" data-value="azul" data-display="Azul">
+                                Azul
+                            </button>
+                            <button class="option-btn" data-option="dial" data-value="champán" data-display="Champán">
+                                Champán
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3>Correa</h3>
+                        <div class="options-grid">
+                            <button class="option-btn active" data-option="strap" data-value="cuero" data-display="Cuero">
+                                Cuero
+                            </button>
+                            <button class="option-btn" data-option="strap" data-value="acero" data-display="Acero">
+                                Acero
+                            </button>
+                            <button class="option-btn" data-option="strap" data-value="goma" data-display="Goma">
+                                Goma
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3>Color de Correa</h3>
+                        <div class="options-grid">
+                            <button class="option-btn active" data-option="strap-color" data-value="marrón" data-display="Marrón">
+                                Marrón
+                            </button>
+                            <button class="option-btn" data-option="strap-color" data-value="negro" data-display="Negro">
+                                Negro
+                            </button>
+                            <button class="option-btn" data-option="strap-color" data-value="oro" data-display="Oro">
+                                Oro
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <h3>Color de Manillas</h3>
+                        <div class="options-grid" style="grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));">
+                            ${Object.entries(handsColors).map(([name, color]) => `
+                                <div class="color-option ${name === 'plateado' ? 'active' : ''}" 
+                                     data-option="hands" 
+                                     data-value="${name}" 
+                                     data-display="${name.charAt(0).toUpperCase() + name.slice(1)}"
+                                     style="background-color: ${color};">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-volver">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </button>
+                        <button class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-container">
+                    <img src="base-watch.png" class="watch-layer" id="base-preview">
+                    <img src="bezel-gold.png" class="watch-layer" id="bezel-preview">
+                    <img src="dial-white.png" class="watch-layer" id="dial-preview">
+                    <img src="strap-leather.png" class="watch-layer" id="strap-preview">
+                    <img src="strap-color-brown.png" class="watch-layer" id="strap-color-preview">
+                    <img src="hands-silver.png" class="watch-layer" id="hands-preview">
+                </div>
+            `;
+
+            // Añadir Font Awesome
+            const fa = document.createElement('link');
+            fa.rel = 'stylesheet';
+            fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+            document.head.appendChild(fa);
+
+            // Botón de volver
+            document.querySelector('.btn-volver').addEventListener('click', () => {
+                document.querySelector('.catalogo').style.display = 'block';
+                document.querySelector('.configurator-container').style.display = 'none';
+            });
+
+            // Botón de WhatsApp
+            document.querySelector('.btn-whatsapp').addEventListener('click', () => {
+                const whatsappNumber = "+34666666666"; // Número de Seiko Watchespain
+                const message = `¡Hola Seiko Watchespain! Estoy interesado en este reloj personalizado:\n\n` +
+                             `Modelo: ${currentConfig.modelName}\n` +
+                             `Precio base: ${currentConfig.price}€\n` +
+                             `Personalización:\n` +
+                             `- Bisel: ${currentConfig.bezel}\n` +
+                             `- Esfera: ${currentConfig.dial}\n` +
+                             `- Correa: ${currentConfig.strap} (${currentConfig.strapColor})\n` +
+                             `- Manillas: ${currentConfig.handsColor}\n\n` +
+                             `¿Podrían confirmarme disponibilidad? ¡Gracias!`;
+                
+                window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`);
+            });
+
+            // Configurar eventos para los botones de opciones
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const optionType = this.dataset.option;
+                    const optionValue = this.dataset.value;
+                    const optionDisplay = this.dataset.display;
+                    
+                    // Actualizar botones activos
+                    document.querySelectorAll(`[data-option="${optionType}"]`).forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Actualizar configuración
+                    currentConfig[optionType] = optionValue;
+                    
+                    // Actualizar resumen
+                    document.getElementById(`${optionType}-summary`).textContent = optionDisplay;
+                    if (optionType === 'strap') {
+                        document.getElementById('strap-summary').textContent = `${optionDisplay} (${currentConfig['strap-color']})`;
+                    }
+                    
+                    // Actualizar vista previa
+                    updatePreview();
+                });
+            });
+
+            // Configurar eventos para los colores de manillas
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const optionType = this.dataset.option;
+                    const optionValue = this.dataset.value;
+                    const optionDisplay = this.dataset.display;
+                    
+                    // Actualizar botones activos
+                    document.querySelectorAll(`[data-option="${optionType}"]`).forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Actualizar configuración
+                    currentConfig[optionType] = optionValue;
+                    
+                    // Actualizar resumen
+                    document.getElementById(`${optionType}-summary`).textContent = optionDisplay;
+                    
+                    // Actualizar vista previa
+                    updatePreview();
+                });
+            });
+
+            // Función para actualizar la vista previa
+            function updatePreview() {
+                // En producción, reemplazar con rutas reales de imágenes
+                document.getElementById('bezel-preview').src = `bezel-${currentConfig.bezel.split(' ')[0]}.png`;
+                document.getElementById('dial-preview').src = `dial-${currentConfig.dial}.png`;
+                document.getElementById('strap-preview').src = `strap-${currentConfig.strap}.png`;
+                document.getElementById('strap-color-preview').src = `strap-color-${currentConfig.strapColor}.png`;
+                document.getElementById('hands-preview').src = `hands-${currentConfig.handsColor}.png`;
+            }
+        }
+    </script>
+</body>
+</html>
