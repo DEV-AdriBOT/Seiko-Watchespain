@@ -962,8 +962,8 @@
             <div class="hero-subtitle">PREMIUM HOROLOGY</div>
             <h1 class="hero-title">Create Your Custom Piece</h1>
             <div class="hero-buttons">
-                <button class="hero-btn btn-primary">Shop All</button>
-                <button class="hero-btn btn-secondary">Learn More</button>
+                <a href="#shop" class="hero-btn btn-primary">Shop All</a>
+                <a href="#contact" class="hero-btn btn-secondary">Contact Us</a>
             </div>
         </div>
     </section>
@@ -1217,11 +1217,11 @@
                 
                 <div class="contact-card">
                     <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fab fa-instagram"></i>
                     </div>
                     <div>
-                        <h3>Email</h3>
-                        <p>info@seikowatchespain.com</p>
+                        <h3>Instagram</h3>
+                        <p>@seikowatchespain</p>
                     </div>
                 </div>
                 
@@ -1294,7 +1294,7 @@
             <img src="https://via.placeholder.com/300x300" alt="Watch of the Month" class="watch-month-image">
             <h3 class="watch-month-name">Seikomaster</h3>
             <p>Our watch of the month features a special edition blue dial and ceramic bezel. Limited to 100 pieces worldwide.</p>
-            <button class="hero-btn btn-primary" style="margin-top: 2rem;">Discover</button>
+            <a href="#shop" class="hero-btn btn-primary" style="margin-top: 2rem;">Discover</a>
         </div>
     </section>
 
@@ -1306,6 +1306,7 @@
             <a href="#shop">Shop</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
+            <a href="https://www.instagram.com/seikowatchespain" target="_blank">Instagram</a>
             <a href="#">Shipping</a>
             <a href="#">Returns</a>
             <a href="#">Privacy Policy</a>
@@ -1396,7 +1397,7 @@
                         <button class="btn-reset">
                             <i class="fas fa-redo"></i> Reset
                         </button>
-                        <button class="btn-whatsapp">
+                        <button class="btn-whatsapp" id="whatsappCustomOrder">
                             <i class="fab fa-whatsapp"></i> Order via WhatsApp
                         </button>
                     </div>
@@ -1482,6 +1483,8 @@
         const customizeButtons = document.querySelectorAll('.customize-btn');
         const watchPreviewImage = document.getElementById('watch-preview-image');
         const optionItems = document.querySelectorAll('.option-item');
+        const whatsappCustomOrderBtn = document.getElementById('whatsappCustomOrder');
+        let currentWatchModel = null;
 
         // Abrir modal de personalización
         customizeButtons.forEach(button => {
@@ -1490,9 +1493,9 @@
                 const watchName = watchCard.querySelector('.watch-name').textContent;
                 
                 // Configurar el modal para este reloj
-                const watchModel = watchModels.find(model => model.name === watchName);
-                if (watchModel) {
-                    watchPreviewImage.src = watchModel.images.default;
+                currentWatchModel = watchModels.find(model => model.name === watchName);
+                if (currentWatchModel) {
+                    watchPreviewImage.src = currentWatchModel.images.default;
                     document.querySelector('.customizer-title').textContent = `Personalize Your ${watchName}`;
                 }
                 
@@ -1538,16 +1541,16 @@
             });
             
             // Restablecer imagen de vista previa
-            const watchName = document.querySelector('.customizer-title').textContent.replace('Personalize Your ', '');
-            const watchModel = watchModels.find(model => model.name === watchName);
-            if (watchModel) {
-                watchPreviewImage.src = watchModel.images.default;
+            if (currentWatchModel) {
+                watchPreviewImage.src = currentWatchModel.images.default;
             }
         });
 
         // Botón de WhatsApp en el personalizador
-        document.querySelector('.btn-whatsapp').addEventListener('click', function() {
-            const watchName = document.querySelector('.customizer-title').textContent.replace('Personalize Your ', '');
+        whatsappCustomOrderBtn.addEventListener('click', function() {
+            if (!currentWatchModel) return;
+            
+            const watchName = currentWatchModel.name;
             const message = `¡Hola Seiko Watchespain! Estoy interesado en personalizar un ${watchName}. ¿Podrían ayudarme con mi diseño? ¡Gracias!`;
             window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`);
         });
@@ -1703,6 +1706,14 @@
             // Aquí iría la lógica para enviar el formulario
             alert('Thank you for your message! We will contact you soon.');
             this.reset();
+        });
+
+        // Redirigir a Instagram
+        document.querySelectorAll('a[href="#instagram"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://www.instagram.com/seikowatchespain', '_blank');
+            });
         });
 
         // Inicialización
