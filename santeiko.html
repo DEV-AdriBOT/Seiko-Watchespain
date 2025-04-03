@@ -1,10 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizar Santeiko NH35</title>
+    <style>
+        :root {
+            --oro-seiko: #D4AF37;
+            --negro-seiko: #111;
+            --gris-claro: #f5f5f5;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--negro-seiko);
+        }
+        
+        .customizer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .options-panel {
+            background-color: var(--gris-claro);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .option-group {
+            margin-bottom: 30px;
+        }
+        
+        .option-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--negro-seiko);
+            border-bottom: 2px solid var(--oro-seiko);
+            padding-bottom: 5px;
+        }
+        
+        .option-items {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+        
+        .option-item {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .option-item:hover {
+            border-color: var(--oro-seiko);
+            transform: scale(1.05);
+        }
+        
+        .option-item.selected {
+            border-color: var(--oro-seiko);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .option-item img {
+            width: 60px;
+            height: 60px;
+            display: block;
+            margin: 0 auto 5px;
+            border-radius: 10px;
+        }
+        
+        .option-item .option-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .price-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        .btn-add-to-cart {
+            background: var(--negro-seiko);
+            color: white;
+        }
+        
+        .btn-add-to-cart:hover {
+            background: var(--oro-seiko);
+            color: var(--negro-seiko);
+        }
+        
+        @media (max-width: 768px) {
+            .option-items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .option-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="customizer-container">
+        <div class="options-panel">
+            <h1>Santeiko NH35</h1>
+            
+            <div class="option-group">
+                <h2 class="option-title">Case</h2>
+                <div class="option-items">
+                    <div class="option-item selected" data-layer="case" data-value="silver">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dce0692d0cfe7dea0cf4.png" alt="Silver Case">
+                        <div class="option-label">Silver</div>
+                    </div>
+                    <div class="option-item" data-layer="case" data-value="gold">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dce0692d0cfe7dea0cc9.png" alt="Gold Case">
+                        <div class="option-label">Gold</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <h2 class="option-title">Strap</h2>
+                <div class="option-items">
+                    <div class="option-item selected" data-layer="strap" data-value="silver">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67455f15b9daf2f945087c40.png" alt="Silver Strap">
+                        <div class="option-label">Silver</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <h2 class="option-title">Dial</h2>
+                <div class="option-items">
+                    <div class="option-item selected" data-layer="dial" data-value="white">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbca92a387cd5a0df89c.png" alt="White Dial">
+                        <div class="option-label">White</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="black">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbcefa2cc326c318529b.png" alt="Black Dial">
+                        <div class="option-label">Black</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="blue">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbd5fa2cc326c318539b.png" alt="Blue Dial">
+                        <div class="option-label">Blue</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="green">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbda92a387cd5a0dfce9.png" alt="Green Dial">
+                        <div class="option-label">Green</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="red">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbe992a387cd5a0e08d1.png" alt="Red Dial">
+                        <div class="option-label">Red</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="gold">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbed92a387cd5a0e0998.png" alt="Gold Dial">
+                        <div class="option-label">Gold</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="gray">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbf4fa2cc326c3186434.png" alt="Gray Dial">
+                        <div class="option-label">Gray</div>
+                    </div>
+                    <div class="option-item" data-layer="dial" data-value="brown">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dbf8fa2cc326c31864cc.png" alt="Brown Dial">
+                        <div class="option-label">Brown</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <h2 class="option-title">Hands</h2>
+                <div class="option-items">
+                    <div class="option-item selected" data-layer="hands" data-value="blue">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dc64692d0cfe7de9b0c0.png" alt="Blue Hands">
+                        <div class="option-label">Blue</div>
+                    </div>
+                    <div class="option-item" data-layer="hands" data-value="silver">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dc6792a387cd5a0e336b.png" alt="Silver Hands">
+                        <div class="option-label">Silver</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <h2 class="option-title">Second Hands</h2>
+                <div class="option-items">
+                    <div class="option-item selected" data-layer="second-hands" data-value="blue">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dc71d555c0d67344e135.png" alt="Blue Second Hands">
+                        <div class="option-label">Blue</div>
+                    </div>
+                    <div class="option-item" data-layer="second-hands" data-value="red">
+                        <img src="https://cdnv2.mycustomizer.com/a5f598/200x200/67a0dc75d555c0d67344e22b.png" alt="Red Second Hands">
+                        <div class="option-label">Red</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price-display">
+                Precio: <span id="watch-price">349.90€</span>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-whatsapp" id="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                </button>
+                <button class="btn btn-add-to-cart" id="add-to-cart-btn">Añadir al Carrito</button>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        // Configuración del reloj
+        const watchConfig = {
+            name: "Santeiko NH35",
+            basePrice: 349.90,
+            currentPrice: 349.90,
+            selectedOptions: {
+                case: "silver",
+                strap: "silver",
+                dial: "white",
+                hands: "blue",
+                "second-hands": "blue"
+            }
+        };
+
+        // Elementos del DOM
+        const optionItems = document.querySelectorAll('.option-item');
+        const priceDisplay = document.getElementById('watch-price');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+        // Selección de opciones
+        optionItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const layer = this.getAttribute('data-layer');
+                const value = this.getAttribute('data-value');
+                
+                // Actualizar selección visual
+                document.querySelectorAll(`.option-item[data-layer="${layer}"]`).forEach(i => {
+                    i.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // Actualizar configuración
+                watchConfig.selectedOptions[layer] = value;
+            });
+        });
+
+        // Botón de WhatsApp
+        whatsappBtn.addEventListener('click', function() {
+            const message = `¡Hola! Estoy interesado en un Santeiko NH35 personalizado con:
+- Carcasa: ${watchConfig.selectedOptions.case}
+- Correa: ${watchConfig.selectedOptions.strap}
+- Esfera: ${watchConfig.selectedOptions.dial}
+- Manecillas: ${watchConfig.selectedOptions.hands}
+- Segundero: ${watchConfig.selectedOptions["second-hands"]}
+Precio: ${watchConfig.currentPrice}€
+¿Podrían ayudarme con mi pedido?`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/34644015155?text=${encodedMessage}`, '_blank');
+        });
+
+        // Botón de Añadir al Carrito
+        addToCartBtn.addEventListener('click', function() {
+            // Enviar mensaje al padre (index.html) con la configuración
+            if (window.parent) {
+                window.parent.postMessage({
+                    type: 'addToCart',
+                    watch: {
+                        name: watchConfig.name,
+                        price: watchConfig.currentPrice,
+                        configuration: watchConfig.selectedOptions
+                    }
+                }, '*');
+            }
+            
+            alert(`${watchConfig.name} se ha añadido a tu carrito!`);
+        });
+
+        // Escuchar mensajes del padre (para recibir actualizaciones si es necesario)
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'updatePrice') {
+                watchConfig.currentPrice = event.data.price;
+                priceDisplay.textContent = `${watchConfig.currentPrice}€`;
+            }
+        });
+    </script>
+    
+    <!-- Icono de WhatsApp (usando CDN de Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </body>
 </html>
