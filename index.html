@@ -580,32 +580,56 @@
             color: #aaa;
         }
 
-        /* Configurador de Relojes */
-        .configurator-container {
+        /* Customizador de relojes */
+        .customizer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .customizer-container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 50px auto;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
             overflow: hidden;
-            padding: 5rem 2rem;
         }
 
-        .configurator-header {
-            padding: 2rem;
-            text-align: center;
+        .customizer-header {
+            padding: 1.5rem;
             background: var(--negro-seiko);
             color: white;
+            text-align: center;
+            position: relative;
         }
 
-        .configurator-title {
+        .customizer-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 2rem;
             color: var(--oro-seiko);
+            margin-bottom: 0.5rem;
         }
 
-        .configurator-body {
+        .close-customizer {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .customizer-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -623,11 +647,10 @@
             overflow: hidden;
         }
 
-        .watch-layer {
-            position: absolute;
+        .watch-preview img {
             max-width: 80%;
             max-height: 80%;
-            pointer-events: none;
+            object-fit: contain;
         }
 
         .customization-options {
@@ -681,27 +704,7 @@
             background: white;
         }
 
-        .configurator-summary {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--gris-seiko);
-            border-radius: 8px;
-        }
-
-        .summary-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--negro-seiko);
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .configurator-actions {
+        .customizer-actions {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
@@ -746,6 +749,136 @@
             transform: translateY(-3px);
         }
 
+        /* Personalizar botón */
+        .customize-btn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .watch-card:hover .customize-btn {
+            transform: translateY(0);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            background: var(--gris-seiko);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--negro-seiko);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--oro-seiko);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-control {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--negro-seiko);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--oro-seiko);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-header {
@@ -769,10 +902,6 @@
                 gap: 1rem;
             }
             
-            .configurator-body {
-                grid-template-columns: 1fr;
-            }
-            
             .watch-grid {
                 grid-template-columns: 1fr;
             }
@@ -783,6 +912,14 @@
             
             .watch-preview {
                 height: 300px;
+            }
+
+            .customizer-body {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -801,7 +938,6 @@
         
         <nav class="nav-menu">
             <a href="#shop">Shop</a>
-            <a href="#configurator">Configurator</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -826,8 +962,8 @@
             <div class="hero-subtitle">PREMIUM HOROLOGY</div>
             <h1 class="hero-title">Create Your Custom Piece</h1>
             <div class="hero-buttons">
-                <button class="hero-btn btn-primary" id="open-configurator">Configurator</button>
-                <button class="hero-btn btn-secondary">Shop All</button>
+                <button class="hero-btn btn-primary">Shop All</button>
+                <button class="hero-btn btn-secondary">Learn More</button>
             </div>
         </div>
     </section>
@@ -837,60 +973,107 @@
         <h2 class="section-title">Our Collection</h2>
         
         <div class="watch-grid">
-            <!-- Seitona -->
+            <!-- Nautiko -->
             <div class="watch-card">
                 <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
-                    <div class="watch-badge">-20%</div>
+                    <div class="customize-btn">Personalize</div>
                 </div>
                 <div class="watch-info">
-                    <h3 class="watch-name">Seitona</h3>
+                    <h3 class="watch-name">Nautiko</h3>
                     <div class="watch-price">
-                        <span class="current-price">170€</span>
-                        <span class="original-price">210€</span>
+                        <span class="current-price">180€</span>
                     </div>
-                    <p class="watch-description">Inspired by the legendary Daytona, precision and elegance in a timeless design.</p>
+                    <p class="watch-description">Our interpretation of the classic nautical watch with modern Seiko technology.</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Santeiko -->
+            <div class="watch-card">
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
+                <div class="watch-info">
+                    <h3 class="watch-name">Santeiko</h3>
+                    <div class="watch-price">
+                        <span class="current-price">190€</span>
+                    </div>
+                    <p class="watch-description">Elegant and sophisticated, perfect for formal occasions.</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Seikoak -->
+            <div class="watch-card">
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
+                <div class="watch-info">
+                    <h3 class="watch-name">Seikoak</h3>
+                    <div class="watch-price">
+                        <span class="current-price">200€</span>
+                    </div>
+                    <p class="watch-description">The iconic octagonal design with Japanese precision.</p>
                     <button class="add-to-cart">Add to Cart</button>
                 </div>
             </div>
             
             <!-- Seikojust -->
             <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')"></div>
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
                 <div class="watch-info">
                     <h3 class="watch-name">Seikojust</h3>
                     <div class="watch-price">
                         <span class="current-price">180€</span>
                     </div>
-                    <p class="watch-description">The essence of Datejust with Seiko quality. Perfect for special occasions.</p>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-            
-            <!-- Oysteko -->
-            <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
-                    <div class="watch-badge">-15%</div>
-                </div>
-                <div class="watch-info">
-                    <h3 class="watch-name">Oysteko</h3>
-                    <div class="watch-price">
-                        <span class="current-price">165€</span>
-                        <span class="original-price">195€</span>
-                    </div>
-                    <p class="watch-description">Combines the classic Oyster aesthetic with the reliability of Seiko movements.</p>
+                    <p class="watch-description">The essence of Datejust with Seiko quality.</p>
                     <button class="add-to-cart">Add to Cart</button>
                 </div>
             </div>
             
             <!-- Seikomariner -->
             <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')"></div>
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
                 <div class="watch-info">
                     <h3 class="watch-name">Seikomariner</h3>
                     <div class="watch-price">
                         <span class="current-price">190€</span>
                     </div>
-                    <p class="watch-description">The ultimate watch for diving enthusiasts, water resistant to 200m.</p>
+                    <p class="watch-description">The ultimate watch for diving enthusiasts.</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Seikonaut -->
+            <div class="watch-card">
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
+                <div class="watch-info">
+                    <h3 class="watch-name">Seikonaut</h3>
+                    <div class="watch-price">
+                        <span class="current-price">190€</span>
+                    </div>
+                    <p class="watch-description">Sporty elegance and technical performance.</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Seitona -->
+            <div class="watch-card">
+                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
+                    <div class="customize-btn">Personalize</div>
+                </div>
+                <div class="watch-info">
+                    <h3 class="watch-name">Seitona</h3>
+                    <div class="watch-price">
+                        <span class="current-price">170€</span>
+                    </div>
+                    <p class="watch-description">Inspired by the legendary Daytona, precision and elegance.</p>
                     <button class="add-to-cart">Add to Cart</button>
                 </div>
             </div>
@@ -949,222 +1132,134 @@
         </div>
     </section>
 
-    <!-- Sección Configurador de Relojes -->
-    <section class="configurator-container" id="configurator">
-        <div class="configurator-header">
-            <h1 class="configurator-title">Configurador de Relojes</h1>
-            <p>Crea tu reloj personalizado seleccionando cada componente</p>
-        </div>
+    <!-- Sección FAQ -->
+    <section class="faq-section" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
         
-        <div class="configurator-body">
-            <div class="watch-preview">
-                <!-- Las capas del reloj se añadirán dinámicamente -->
-                <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae25eb9366a525c371e3.png" id="base-layer" class="watch-layer">
-                <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae60b9daf2f945217e3f.png" id="bezel-layer" class="watch-layer">
-                <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8768b3830d8ae41d3af.png" id="dial-layer" class="watch-layer">
-                <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af5b8b3830d8ae3f4097.png" id="strap-layer" class="watch-layer">
-                <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6a9176999ee2bdc9f1b.png" id="hands-layer" class="watch-layer">
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is your return policy?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a 30-day return policy for all unworn watches in their original condition with all packaging and tags intact. Customized watches are final sale unless there is a manufacturing defect.</p>
+                </div>
             </div>
             
-            <div class="customization-options">
-                <!-- Carcasa -->
-                <div class="option-group">
-                    <h3 class="option-title">Carcasa</h3>
-                    <div class="option-items">
-                        <div class="option-item active" data-target="base-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae25eb9366a525c371e3.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae25eb9366a525c371e3.png" alt="Carcasa 1">
-                        </div>
-                        <div class="option-item" data-target="base-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae34b9daf2f94521768d.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae34b9daf2f94521768d.png" alt="Carcasa 2">
-                        </div>
-                        <div class="option-item" data-target="base-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae3e8b3830d8ae3edeb2.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae3e8b3830d8ae3edeb2.png" alt="Carcasa 3">
-                        </div>
-                        <div class="option-item" data-target="base-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae48b9daf2f945217881.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae48b9daf2f945217881.png" alt="Carcasa 4">
-                        </div>
-                    </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How long does shipping take?</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                
-                <!-- Bisel -->
-                <div class="option-group">
-                    <h3 class="option-title">Bisel</h3>
-                    <div class="option-items">
-                        <div class="option-item active" data-target="bezel-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae60b9daf2f945217e3f.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae60b9daf2f945217e3f.png" alt="Bisel 1">
-                        </div>
-                        <div class="option-item" data-target="bezel-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae88f94463898b303dd2.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae88f94463898b303dd2.png" alt="Bisel 2">
-                        </div>
-                        <div class="option-item" data-target="bezel-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae9e8b3830d8ae3f03a2.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae9e8b3830d8ae3f03a2.png" alt="Bisel 3">
-                        </div>
-                        <div class="option-item" data-target="bezel-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745aea98b3830d8ae3f047f.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745aea98b3830d8ae3f047f.png" alt="Bisel 4">
-                        </div>
-                    </div>
+                <div class="faq-answer">
+                    <p>Standard shipping within Spain takes 2-3 business days. International shipping typically takes 5-7 business days. For custom watches, please allow 3-5 business days for production before shipping.</p>
                 </div>
-                
-                <!-- Dial -->
-                <div class="option-group">
-                    <h3 class="option-title">Esfera</h3>
-                    <div class="option-items">
-                        <div class="option-item active" data-target="dial-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8768b3830d8ae41d3af.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8768b3830d8ae41d3af.png" alt="Dial 1">
-                        </div>
-                        <div class="option-item" data-target="dial-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8848b3830d8ae41d9ba.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8848b3830d8ae41d9ba.png" alt="Dial 2">
-                        </div>
-                        <div class="option-item" data-target="dial-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b899f94463898b335f19.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b899f94463898b335f19.png" alt="Dial 3">
-                        </div>
-                        <div class="option-item" data-target="dial-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8abeb9366a525c6bebf.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8abeb9366a525c6bebf.png" alt="Dial 4">
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer international shipping?</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                
-                <!-- Correa -->
-                <div class="option-group">
-                    <h3 class="option-title">Correa</h3>
-                    <div class="option-items">
-                        <div class="option-item active" data-target="strap-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af5b8b3830d8ae3f4097.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af5b8b3830d8ae3f4097.png" alt="Correa 1">
-                        </div>
-                        <div class="option-item" data-target="strap-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af6eeb9366a525c3c0b4.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af6eeb9366a525c3c0b4.png" alt="Correa 2">
-                        </div>
-                        <div class="option-item" data-target="strap-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af778b3830d8ae3f44de.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af778b3830d8ae3f44de.png" alt="Correa 3">
-                        </div>
-                        <div class="option-item" data-target="strap-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af848b3830d8ae3f475f.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af848b3830d8ae3f475f.png" alt="Correa 4">
-                        </div>
-                    </div>
+                <div class="faq-answer">
+                    <p>Yes, we ship worldwide. Shipping costs and delivery times vary by destination. All international shipments may be subject to customs fees and import taxes which are the responsibility of the customer.</p>
                 </div>
-                
-                <!-- Agujas -->
-                <div class="option-group">
-                    <h3 class="option-title">Agujas</h3>
-                    <div class="option-items">
-                        <div class="option-item active" data-target="hands-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6a9176999ee2bdc9f1b.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6a9176999ee2bdc9f1b.png" alt="Agujas 1">
-                        </div>
-                        <div class="option-item" data-target="hands-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b1307a6a5391a0e3a6.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b1307a6a5391a0e3a6.png" alt="Agujas 2">
-                        </div>
-                        <div class="option-item" data-target="hands-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b6307a6a5391a0e4e8.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b6307a6a5391a0e4e8.png" alt="Agujas 3">
-                        </div>
-                        <div class="option-item" data-target="hands-layer" data-src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6bc176999ee2bdcb747.png">
-                            <img src="https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6bc176999ee2bdcb747.png" alt="Agujas 4">
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does the customization process work?</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
-                
-                <div class="configurator-summary">
-                    <h3 class="summary-title">Tu configuración</h3>
-                    <div class="summary-item">
-                        <span>Modelo base:</span>
-                        <span>Seiko Custom</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Carcasa:</span>
-                        <span id="carcasa-summary">Estándar</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Bisel:</span>
-                        <span id="bezel-summary">Clásico</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Esfera:</span>
-                        <span id="dial-summary">Blanca</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Correa:</span>
-                        <span id="strap-summary">Cuero negro</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Agujas:</span>
-                        <span id="hands-summary">Estándar</span>
-                    </div>
+                <div class="faq-answer">
+                    <p>You can customize any watch by clicking the "Personalize" button on the product. This will open our customization tool where you can select different components, colors, and materials. Once you're satisfied with your design, you can add it to your cart or contact us for further assistance.</p>
                 </div>
-                
-                <div class="configurator-actions">
-                    <button class="btn-reset">
-                        <i class="fas fa-redo"></i> Reiniciar
-                    </button>
-                    <button class="btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-                    </button>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. For large orders or custom pieces, we may offer additional payment options.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Iconic Models -->
-    <section class="iconic-section">
-        <h2 class="section-title">Iconic Models</h2>
+    <!-- Sección Contacto -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Contact Us</h2>
         
-        <div class="watch-grid">
-            <!-- Gmteiko -->
-            <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
-                    <div class="watch-badge">Limited</div>
-                </div>
-                <div class="watch-info">
-                    <h3 class="watch-name">Gmteiko</h3>
-                    <div class="watch-price">
-                        <span class="current-price">200€</span>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <p class="watch-description">For frequent travelers, displays two time zones simultaneously with precision.</p>
-                    <button class="add-to-cart">Add to Cart</button>
+                    <div>
+                        <h3>Address</h3>
+                        <p>Calle Relojería 123, 28001 Madrid, Spain</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+34 644 015 155</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@seikowatchespain.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 10:00 - 20:00</p>
+                        <p>Saturday: 11:00 - 18:00</p>
+                    </div>
                 </div>
             </div>
             
-            <!-- Royal Seikoak -->
-            <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
-                    <div class="watch-badge">-25%</div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" required>
                 </div>
-                <div class="watch-info">
-                    <h3 class="watch-name">Royal Seikoak</h3>
-                    <div class="watch-price">
-                        <span class="current-price">185€</span>
-                        <span class="original-price">245€</span>
-                    </div>
-                    <p class="watch-description">The iconic octagonal design with Japanese precision. Doesn't go unnoticed.</p>
-                    <button class="add-to-cart">Add to Cart</button>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required>
                 </div>
-            </div>
-            
-            <!-- Nautiko -->
-            <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')"></div>
-                <div class="watch-info">
-                    <h3 class="watch-name">Nautiko</h3>
-                    <div class="watch-price">
-                        <span class="current-price">180€</span>
-                    </div>
-                    <p class="watch-description">Our interpretation of the classic nautical watch with modern Seiko technology.</p>
-                    <button class="add-to-cart">Add to Cart</button>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" class="form-control" required>
                 </div>
-            </div>
-            
-            <!-- Seikonaut -->
-            <div class="watch-card">
-                <div class="watch-image" style="background-image: url('https://via.placeholder.com/300x300')">
-                    <div class="watch-badge">New</div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" class="form-control" required></textarea>
                 </div>
-                <div class="watch-info">
-                    <h3 class="watch-name">Seikonaut</h3>
-                    <div class="watch-price">
-                        <span class="current-price">190€</span>
-                    </div>
-                    <p class="watch-description">The perfect combination of sporty elegance and technical performance.</p>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
         </div>
     </section>
 
@@ -1209,7 +1304,6 @@
         
         <div class="footer-links">
             <a href="#shop">Shop</a>
-            <a href="#configurator">Configurator</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
             <a href="#">Shipping</a>
@@ -1222,6 +1316,94 @@
             © 2025 Seiko Watchespain. All rights reserved. Created by NeonDev.
         </div>
     </footer>
+
+    <!-- Modal de personalización -->
+    <div class="customizer-modal" id="customizerModal">
+        <div class="customizer-container">
+            <div class="customizer-header">
+                <h2 class="customizer-title">Personalize Your Watch</h2>
+                <p>Create your unique timepiece by selecting each component</p>
+                <button class="close-customizer">&times;</button>
+            </div>
+            
+            <div class="customizer-body">
+                <div class="watch-preview">
+                    <img src="https://via.placeholder.com/500x500" id="watch-preview-image">
+                </div>
+                
+                <div class="customization-options">
+                    <div class="option-group">
+                        <h3 class="option-title">Case</h3>
+                        <div class="option-items">
+                            <div class="option-item active">
+                                <img src="https://via.placeholder.com/80x80" alt="Case 1">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/000000" alt="Case 2">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/333333" alt="Case 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3 class="option-title">Bezel</h3>
+                        <div class="option-items">
+                            <div class="option-item active">
+                                <img src="https://via.placeholder.com/80x80" alt="Bezel 1">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/000000" alt="Bezel 2">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/333333" alt="Bezel 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3 class="option-title">Dial</h3>
+                        <div class="option-items">
+                            <div class="option-item active">
+                                <img src="https://via.placeholder.com/80x80" alt="Dial 1">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/000000" alt="Dial 2">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/333333" alt="Dial 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3 class="option-title">Strap</h3>
+                        <div class="option-items">
+                            <div class="option-item active">
+                                <img src="https://via.placeholder.com/80x80" alt="Strap 1">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/000000" alt="Strap 2">
+                            </div>
+                            <div class="option-item">
+                                <img src="https://via.placeholder.com/80x80/333333" alt="Strap 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="customizer-actions">
+                        <button class="btn-reset">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Configuración
@@ -1237,14 +1419,27 @@
         // Modelos de relojes
         const watchModels = [
             {
-                id: 'seitona',
-                name: 'Seitona',
-                basePrice: 170,
+                id: 'nautiko',
+                name: 'Nautiko',
+                basePrice: 180,
                 images: {
-                    default: 'https://via.placeholder.com/500x500',
-                    goldBezel: 'https://via.placeholder.com/500x500/FFD700',
-                    silverBezel: 'https://via.placeholder.com/500x500/C0C0C0',
-                    blackBezel: 'https://via.placeholder.com/500x500/000000'
+                    default: 'https://via.placeholder.com/500x500'
+                }
+            },
+            {
+                id: 'santeiko',
+                name: 'Santeiko',
+                basePrice: 190,
+                images: {
+                    default: 'https://via.placeholder.com/500x500/0000FF'
+                }
+            },
+            {
+                id: 'seikoak',
+                name: 'Seikoak',
+                basePrice: 200,
+                images: {
+                    default: 'https://via.placeholder.com/500x500/FFFFFF'
                 }
             },
             {
@@ -1252,127 +1447,108 @@
                 name: 'Seikojust',
                 basePrice: 180,
                 images: {
-                    default: 'https://via.placeholder.com/500x500/0000FF'
+                    default: 'https://via.placeholder.com/500x500/000000'
                 }
             },
             {
-                id: 'oysteko',
-                name: 'Oysteko',
-                basePrice: 165,
+                id: 'seikomariner',
+                name: 'Seikomariner',
+                basePrice: 190,
                 images: {
-                    default: 'https://via.placeholder.com/500x500/FFFFFF'
+                    default: 'https://via.placeholder.com/500x500/008000'
+                }
+            },
+            {
+                id: 'seikonaut',
+                name: 'Seikonaut',
+                basePrice: 190,
+                images: {
+                    default: 'https://via.placeholder.com/500x500/FF0000'
+                }
+            },
+            {
+                id: 'seitona',
+                name: 'Seitona',
+                basePrice: 170,
+                images: {
+                    default: 'https://via.placeholder.com/500x500/FFFF00'
                 }
             }
         ];
 
-        // Nombres descriptivos para las opciones del configurador
-        const optionNames = {
-            'base-layer': {
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae25eb9366a525c371e3.png': 'Carcasa Estándar',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae34b9daf2f94521768d.png': 'Carcasa Deportiva',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae3e8b3830d8ae3edeb2.png': 'Carcasa Elegante',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae48b9daf2f945217881.png': 'Carcasa Premium'
-            },
-            'bezel-layer': {
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae60b9daf2f945217e3f.png': 'Bisel Clásico',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae88f94463898b303dd2.png': 'Bisel Deportivo',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae9e8b3830d8ae3f03a2.png': 'Bisel Elegante',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745aea98b3830d8ae3f047f.png': 'Bisel Premium'
-            },
-            'dial-layer': {
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8768b3830d8ae41d3af.png': 'Esfera Blanca',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8848b3830d8ae41d9ba.png': 'Esfera Negra',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b899f94463898b335f19.png': 'Esfera Azul',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8abeb9366a525c6bebf.png': 'Esfera Champán'
-            },
-            'strap-layer': {
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af5b8b3830d8ae3f4097.png': 'Correa Cuero Negro',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af6eeb9366a525c3c0b4.png': 'Correa Acero',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af778b3830d8ae3f44de.png': 'Correa Cuero Marrón',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af848b3830d8ae3f475f.png': 'Correa Goma'
-            },
-            'hands-layer': {
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6a9176999ee2bdc9f1b.png': 'Agujas Estándar',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b1307a6a5391a0e3a6.png': 'Agujas Elegantes',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6b6307a6a5391a0e4e8.png': 'Agujas Deportivas',
-                'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6bc176999ee2bdcb747.png': 'Agujas Luminosas'
-            }
-        };
+        // Modal de personalización
+        const customizerModal = document.getElementById('customizerModal');
+        const closeCustomizer = document.querySelector('.close-customizer');
+        const customizeButtons = document.querySelectorAll('.customize-btn');
+        const watchPreviewImage = document.getElementById('watch-preview-image');
+        const optionItems = document.querySelectorAll('.option-item');
 
-        // Selección de opciones en el configurador
-        document.querySelectorAll('.option-item').forEach(item => {
+        // Abrir modal de personalización
+        customizeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const watchCard = this.closest('.watch-card');
+                const watchName = watchCard.querySelector('.watch-name').textContent;
+                
+                // Configurar el modal para este reloj
+                const watchModel = watchModels.find(model => model.name === watchName);
+                if (watchModel) {
+                    watchPreviewImage.src = watchModel.images.default;
+                    document.querySelector('.customizer-title').textContent = `Personalize Your ${watchName}`;
+                }
+                
+                customizerModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Cerrar modal
+        closeCustomizer.addEventListener('click', function() {
+            customizerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Cerrar al hacer clic fuera del modal
+        window.addEventListener('click', function(event) {
+            if (event.target === customizerModal) {
+                customizerModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Selección de opciones en el personalizador
+        optionItems.forEach(item => {
             item.addEventListener('click', function() {
-                const target = this.getAttribute('data-target');
-                const src = this.getAttribute('data-src');
-                
-                // Actualizar vista previa
-                document.getElementById(target).src = src;
-                
-                // Actualizar estado activo
-                this.parentElement.querySelectorAll('.option-item').forEach(i => i.classList.remove('active'));
+                const container = this.closest('.option-items');
+                container.querySelectorAll('.option-item').forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Actualizar resumen
-                updateSummary(target, src);
+                // Aquí iría la lógica para actualizar la vista previa con la opción seleccionada
+                // Por ahora solo mostramos un mensaje
+                console.log('Opción seleccionada:', this.querySelector('img').alt);
             });
         });
 
-        // Actualizar resumen del configurador
-        function updateSummary(target, src) {
-            const summaryMap = {
-                'base-layer': 'carcasa-summary',
-                'bezel-layer': 'bezel-summary',
-                'dial-layer': 'dial-summary',
-                'strap-layer': 'strap-summary',
-                'hands-layer': 'hands-summary'
-            };
-            
-            if (optionNames[target] && optionNames[target][src]) {
-                document.getElementById(summaryMap[target]).textContent = optionNames[target][src];
-            }
-        }
-
-        // Botón de reinicio en el configurador
+        // Botón de reinicio en el personalizador
         document.querySelector('.btn-reset').addEventListener('click', function() {
-            // Restablecer imágenes
-            document.getElementById('base-layer').src = 'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae25eb9366a525c371e3.png';
-            document.getElementById('bezel-layer').src = 'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745ae60b9daf2f945217e3f.png';
-            document.getElementById('dial-layer').src = 'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745b8768b3830d8ae41d3af.png';
-            document.getElementById('strap-layer').src = 'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/6745af5b8b3830d8ae3f4097.png';
-            document.getElementById('hands-layer').src = 'https://cdnv2.mycustomizer.com/8a3c1a-c2/200x200/677ef6a9176999ee2bdc9f1b.png';
-            
-            // Restablecer selecciones activas
-            document.querySelectorAll('.option-item').forEach(item => item.classList.remove('active'));
             document.querySelectorAll('.option-items').forEach(container => {
-                container.querySelector('.option-item').classList.add('active');
+                container.querySelectorAll('.option-item').forEach((item, index) => {
+                    item.classList.remove('active');
+                    if (index === 0) item.classList.add('active');
+                });
             });
             
-            // Restablecer resumen
-            document.getElementById('carcasa-summary').textContent = 'Estándar';
-            document.getElementById('bezel-summary').textContent = 'Clásico';
-            document.getElementById('dial-summary').textContent = 'Blanca';
-            document.getElementById('strap-summary').textContent = 'Cuero negro';
-            document.getElementById('hands-summary').textContent = 'Estándar';
+            // Restablecer imagen de vista previa
+            const watchName = document.querySelector('.customizer-title').textContent.replace('Personalize Your ', '');
+            const watchModel = watchModels.find(model => model.name === watchName);
+            if (watchModel) {
+                watchPreviewImage.src = watchModel.images.default;
+            }
         });
 
-        // Botón de WhatsApp en el configurador
+        // Botón de WhatsApp en el personalizador
         document.querySelector('.btn-whatsapp').addEventListener('click', function() {
-            const config = {
-                carcasa: document.getElementById('carcasa-summary').textContent,
-                bisel: document.getElementById('bezel-summary').textContent,
-                esfera: document.getElementById('dial-summary').textContent,
-                correa: document.getElementById('strap-summary').textContent,
-                agujas: document.getElementById('hands-summary').textContent
-            };
-            
-            const message = `¡Hola Seiko Watchespain! Estoy interesado en este reloj personalizado:\n\n` +
-                         `- Carcasa: ${config.carcasa}\n` +
-                         `- Bisel: ${config.bisel}\n` +
-                         `- Esfera: ${config.esfera}\n` +
-                         `- Correa: ${config.correa}\n` +
-                         `- Agujas: ${config.agujas}\n\n` +
-                         `¿Podrían darme más información? ¡Gracias!`;
-            
+            const watchName = document.querySelector('.customizer-title').textContent.replace('Personalize Your ', '');
+            const message = `¡Hola Seiko Watchespain! Estoy interesado en personalizar un ${watchName}. ¿Podrían ayudarme con mi diseño? ¡Gracias!`;
             window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`);
         });
 
@@ -1438,13 +1614,6 @@
             
             cartItems.forEach((item, index) => {
                 message += `${index + 1}. ${item.name} - ${item.price}€`;
-                if (item.configuration) {
-                    message += `\n   Configuration:`;
-                    message += `\n   - Bezel: ${item.configuration.bezel}`;
-                    message += `\n   - Dial: ${item.configuration.dial}`;
-                    message += `\n   - Strap: ${item.configuration.strapMaterial} (${item.configuration.strapColor})`;
-                    message += `\n   - Hands: ${item.configuration.handsColor}`;
-                }
                 message += "\n\n";
             });
             
@@ -1509,6 +1678,32 @@
             document.removeEventListener('touchmove', slideMoveTouch);
             document.removeEventListener('touchend', stopSlideTouch);
         }
+
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+                
+                // Cerrar otros items
+                faqQuestions.forEach(q => {
+                    if (q !== question) {
+                        q.parentElement.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Formulario de contacto
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí iría la lógica para enviar el formulario
+            alert('Thank you for your message! We will contact you soon.');
+            this.reset();
+        });
 
         // Inicialización
         updateCartCount();
