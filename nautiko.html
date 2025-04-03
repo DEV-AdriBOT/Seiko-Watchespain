@@ -34,30 +34,6 @@
             border-radius: 8px;
         }
         
-        .preview-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .watch-preview {
-            width: 100%;
-            max-width: 500px;
-            height: 500px;
-            background-color: var(--gris-claro);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        
-        .watch-preview img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-        
         .option-group {
             margin-bottom: 30px;
         }
@@ -243,9 +219,6 @@
         </div>
         
         <div class="preview-panel">
-            <div class="watch-preview">
-                <img id="watch-preview-image" src="https://cdnv2.mycustomizer.com/c18877/500x500/6710b59a60cce0e9a7bc94ef.png" alt="Nautiko NH35 Preview">
-            </div>
             
             <div class="price-display">
                 Precio: <span id="watch-price">349.90€</span>
@@ -299,7 +272,6 @@
 
         // Elementos del DOM
         const optionItems = document.querySelectorAll('.option-item');
-        const watchPreview = document.getElementById('watch-preview-image');
         const priceDisplay = document.getElementById('watch-price');
         const whatsappBtn = document.getElementById('whatsapp-btn');
         const addToCartBtn = document.getElementById('add-to-cart-btn');
