@@ -315,31 +315,6 @@ Precio: ${watchConfig.currentPrice}€
             window.open(`https://wa.me/34644015155?text=${encodedMessage}`, '_blank');
         });
 
-        // Botón de Añadir al Carrito
-        addToCartBtn.addEventListener('click', function() {
-            // Enviar mensaje al padre (index.html) con la configuración
-            if (window.parent) {
-                window.parent.postMessage({
-                    type: 'addToCart',
-                    watch: {
-                        name: watchConfig.name,
-                        price: watchConfig.currentPrice,
-                        configuration: watchConfig.selectedOptions,
-                        image: watchPreview.src
-                    }
-                }, '*');
-            }
-            
-            alert(`${watchConfig.name} se ha añadido a tu carrito!`);
-        });
-
-        // Escuchar mensajes del padre (para recibir actualizaciones si es necesario)
-        window.addEventListener('message', function(event) {
-            if (event.data.type === 'updatePrice') {
-                watchConfig.currentPrice = event.data.price;
-                priceDisplay.textContent = `${watchConfig.currentPrice}€`;
-            }
-        });
     </script>
     
     <!-- Icono de WhatsApp (usando CDN de Font Awesome) -->
